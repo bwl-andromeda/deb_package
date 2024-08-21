@@ -1,4 +1,4 @@
-b710f354f2b650b02c4c00d960030a10  opt/fastapi-app/fastapi-app.service
+91fb5d99c3679944c7af492295d8f041  opt/fastapi-app/fastapi-app.service
 dcdb7e75eea49687c4a23b18ef97dd0f  opt/fastapi-app/main.py
 e4b7c74d26e59d2f67daec57cca6bda7  opt/fastapi-app/requirements.txt
 8d7b55db1a47577266a0bb5fa69e0eef  usr/share/doc/fast-api-app/changelog.Debian.gz
