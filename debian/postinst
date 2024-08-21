@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p /opt/fastapi-app
+
+chown fastapiuser:fastapiuser /opt/fastapi-app
+chown fastapiuser:fastapiuser /opt/fastapi-app/*
+
+python3 -m venv /opt/fastapi-app/.venv
+
+source /opt/fastapi-app/.venv/bin/activate
+
+pip install -r /opt/fastapi-app/requirements.txt
+
+cp /opt/fastapi-app/fastapi-app.service /etc/systemd/system/
+
+systemctl daemon-reload
+
+systemctl enable fastapi-app.service
+
+systemctl start fastapi-app.service

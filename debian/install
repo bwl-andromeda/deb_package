@@ -1,0 +1,3 @@
+app/main.py /opt/fastapi-app/
+app/requirements.txt /opt/fastapi-app/
+systemd-unit/fastapi-app.service /opt/fastapi-app/
