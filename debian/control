@@ -3,8 +3,7 @@ Section: web
 Priority: optional
 Maintainer: Nikita <torchhik_darkness@mail.ru>
 Rules-Requires-Root: no
-Build-Depends:
- debhelper-compat (= 13),python3,python3-venv,python3-pip
+Build-Depends: dpkg-dev,python3,python3-venv,python3-pip
 Standards-Version: 4.6.2
 
 Package: fastapi-app
@@ -12,4 +11,4 @@ Architecture: amd64
 Multi-Arch: foreign
 Pre-Depends: libbz2-1.0, libc6 (>= 2.38),liblzma5 (>= 5.4.0), libmd0 (>= 0.0.0), libselinux1 (>= 3.1~), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4)
 Depends: tar,python3,python3-venv,python3-pip
-Description: fast-api app 
+Description: fastapi app 

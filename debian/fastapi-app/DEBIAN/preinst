@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-
-mkdir -p /opt/fastapi-app
-
-if ! id "fastapiuser" &>/dev/null; then
-	useradd --system --no-create-home --shell /bin/false fastapiuser
-fi

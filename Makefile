@@ -11,7 +11,7 @@ all: build
 
 build:
 	@echo "Building the package..."
-	debuild -b -us -uc
+	dpkg-buildpackage -us -uc
 #install:
 #	@echo "Установка пакета..."
 #	sudo dpkg -i ../$(PACKAGE_NAME)_$(PACKAGE_VERSION)_$(ARCH).deb || sudo apt-get install -f
