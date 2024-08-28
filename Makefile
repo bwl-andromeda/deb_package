@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-.PHONY: build lint clean 
+.PHONY: build clean 
 
 # environment:
 PACKAGE_NAME = fastapi-app
@@ -11,7 +11,7 @@ all: build
 
 build:
 	@echo "Building the package..."
-	dpkg-buildpackage -us -uc
+	debuild -b -us -uc
 #install:
 #	@echo "Установка пакета..."
 #	sudo dpkg -i ../$(PACKAGE_NAME)_$(PACKAGE_VERSION)_$(ARCH).deb || sudo apt-get install -f

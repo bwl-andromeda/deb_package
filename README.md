@@ -3,7 +3,7 @@
 ## Зависимости для того что бы собрать пакет(make):
 
 ```
-sudo apt install dpkg-dev make
+sudo apt install dpkg-dev make debhelper-compat (= 13)
 ```
 ## Сборка пакета:
 
