@@ -1,3 +1,0 @@
-./app/main.py
-./app/requirements.txt
-./systemd-unit/fastapi-app.service
