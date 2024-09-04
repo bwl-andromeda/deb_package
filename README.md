@@ -3,7 +3,7 @@
 ## Зависимости для того что бы собрать пакет(make):
 
 ```
-sudo apt install dpkg-dev make devscripts 
+sudo apt install dpkg-dev make devscripts debhelper 
 ```
 ## Сборка пакета:
 

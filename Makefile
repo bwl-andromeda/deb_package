@@ -12,6 +12,7 @@ all: build
 build:
 	@echo "Собирается пакет..."
 	debuild -b -us -uc
+#Очистка всех лишних файлов.
 clean:
 	@echo "Очистка всех лишних файлов..."
 	rm -rf ../$(PACKAGE_NAME)_$(PACKAGE_VERSION)_$(ARCH).deb ../$(PACKAGE_NAME)_*.build ../$(PACKAGE_NAME)_*.changes ../$(PACKAGE_NAME)_*.dsc ../$(PACKAGE_NAME)_*.tar.*
