@@ -29,21 +29,21 @@ jobs:
           echo $NEW_NAME
           mv $PACKAGE_NAME $NEW_NAME
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: deb-package
-          path: fastapi-app_${VERSION}_amd64.deb
+          #      - name: Upload artifact
+          #uses: actions/upload-artifact@v3
+          #with:
+          #name: deb-package
+          #path: fastapi-app_${VERSION}_amd64.deb
 
   release:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: deb-package
+      #- name: Download artifact
+      #  uses: actions/download-artifact@v3
+      #  with:
+      #    name: deb-package
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
