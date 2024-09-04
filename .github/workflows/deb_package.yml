@@ -26,6 +26,7 @@ jobs:
           echo "Version: $VERSION"
           NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
           echo "New package name: $NEW_NAME"
+          mv $PACKAGE_NAME $NEW_NAME
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
