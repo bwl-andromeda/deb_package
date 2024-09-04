@@ -1,0 +1,58 @@
+name: Build and go to Releases .deb package
+
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+' # Тригер для тега что бы туда попадала версия пакета. 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check rep
+        uses: actions/checkout@v3
+
+      - name: inst depend
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dpkg-dev make devscripts
+      
+      - name: build .deb package
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          make build
+          PACKAGE_NAME=$(ls ../*.deb | head -n 1)
+          NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
+          mv $PACKAGE_NAME $NEW_NAME
+
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: deb-package
+          path: ./fastapi-app_${VERSION}_amd64.deb
+  
+
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: deb-package
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: |
+            Release of version ${{ github.ref }}
+          files: fastapi-app_${{ github.ref_name }}_amd64.deb
+          draft: false
+          prerelease: false
+
