@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deb-package
-          path: fastapi-app_${{ env.VERSION }}_amd64.deb
+          path: ${{ env.CURDIR }}/fastapi-app_${{ env.VERSION }}_amd64.deb
 
   release:
     needs: build
