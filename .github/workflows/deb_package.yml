@@ -23,15 +23,16 @@ jobs:
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           make build
-          PACKAGE_NAME=$(ls ../*.deb | head -n 1)
+          PACKAGE_NAME=$(find .. -type f -name "*.deb" | head -n 1)
           NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
-          mv $PACKAGE_NAME $NEW_NAME
+          cp $PACKAGE_NAME ./$NEW_NAME 
+          echo "Package renamed and moved to $NEW_NAME" 
 
       - name: upload
         uses: actions/upload-artifact@v3
         with:
           name: deb-package
-          path: ../fastapi-app_${VERSION}_amd64.deb
+          path: fastapi-app_${VERSION}_amd64.deb
   
 
 
