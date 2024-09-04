@@ -1,14 +1,14 @@
 name: Build and Release .deb Package
-
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+'  # Регулярное выражение для тегов в формате 0.1, 1.2 и т.д.
+      - '[0-9]+.[0-9]+*'  
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      VERSION: ${{ github.ref_name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,39 +20,36 @@ jobs:
 
       - name: Build .deb package
         run: |
-          VERSION=${GITHUB_REF#refs/tags/}
           make build
-          PACKAGE_NAME=$(ls ../*.deb | head -n 1)
-          echo $PACKAGE_NAME
-          echo $VERSION
+          PACKAGE_NAME=$(ls *.deb | head -n 1)
+          echo "Original package name: $PACKAGE_NAME"
+          echo "Version: $VERSION"
           NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
-          echo $NEW_NAME
+          echo "New package name: $NEW_NAME"
           mv $PACKAGE_NAME $NEW_NAME
 
-          #      - name: Upload artifact
-          #uses: actions/upload-artifact@v3
-          #with:
-          #name: deb-package
-          #path: fastapi-app_${VERSION}_amd64.deb
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deb-package
+          path: fastapi-app_${{ env.VERSION }}_amd64.deb
 
   release:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
-      #- name: Download artifact
-      #  uses: actions/download-artifact@v3
-      #  with:
-      #    name: deb-package
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deb-package
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref }}
-          name: Release ${{ github.ref }}
+          name: Release ${{ github.ref_name }}
           body: |
-            Release of version ${{ github.ref }}.
+            Release of version ${{ github.ref_name }}.
           files: fastapi-app_${{ github.ref_name }}_amd64.deb
           draft: false
           prerelease: false
-
