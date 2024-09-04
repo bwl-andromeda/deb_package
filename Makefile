@@ -8,7 +8,7 @@ ARCH = amd64
 
 # При обычной команде make в начале будет всегда делаться build
 all: build
-
+# build пакета
 build:
 	@echo "Собирается пакет..."
 	debuild -b -us -uc

@@ -1,0 +1,16 @@
+[Unit]
+Description=fastapi-app
+After=network.target
+
+[Service]
+Type=simple
+User=fastapiuser
+WorkingDirectory=/opt/fastapi-app
+Environment="TEST=DevOps-Nikita"
+ExecStartPre=/bin/bash -c 'echo "Date: $(date)"; echo "var test: $TEST"'
+ExecStart=/opt/fastapi-app/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
