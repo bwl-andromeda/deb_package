@@ -24,6 +24,7 @@ jobs:
         run: |
           make build
           PACKAGE_NAME=$(find .. -type f -name "*.deb" | head -n 1)
+          echo $PACKAGE_NAME
           NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
           cp $PACKAGE_NAME ./$NEW_NAME
           echo "Package renamed and moved to $NEW_NAME"
