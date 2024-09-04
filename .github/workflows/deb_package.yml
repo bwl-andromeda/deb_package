@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg-dev make devscripts
+          sudo apt-get install -y dpkg-dev make devscripts debhelper
 
       - name: Build .deb package
         run: |
