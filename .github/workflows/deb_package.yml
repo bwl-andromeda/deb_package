@@ -24,10 +24,10 @@ jobs:
         run: |
           make build
           PACKAGE_NAME=$(find .. -type f -name "*.deb" | head -n 1)
-          echo $PACKAGE_NAME
-          NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
+          echo "Имя пакета - $PACKAGE_NAME ----------------------------------------------------"
+          NEW_NAME="${CURDIR}/fastapi-app_${VERSION}_amd64.deb"
           cp $PACKAGE_NAME ./$NEW_NAME
-          echo "Package renamed and moved to $NEW_NAME"
+          echo "Package renamed and moved to $NEW_NAME ----------------------------------------"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v3

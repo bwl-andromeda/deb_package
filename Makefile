@@ -5,6 +5,7 @@
 PACKAGE_NAME = fastapi-app
 PACKAGE_VERSION = 0.1
 ARCH = amd64
+CURDIR := $(shell pwd)
 
 # При обычной команде make в начале будет всегда делаться build
 all: build
