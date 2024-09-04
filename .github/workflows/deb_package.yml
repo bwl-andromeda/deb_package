@@ -17,7 +17,7 @@ jobs:
       - name: inst depend
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg-dev make devscripts debhelper-compat=13
+          sudo apt-get install -y dpkg-dev make devscripts debhelper
       
       - name: build .deb package
         run: |
