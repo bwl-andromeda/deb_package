@@ -9,6 +9,6 @@ Standards-Version: 4.6.2
 Package: fastapi-app
 Architecture: amd64 
 Multi-Arch: foreign
-Pre-Depends: libbz2-1.0, libc6 (>= 2.38),liblzma5 (>= 5.4.0), libmd0 (>= 0.0.0), libselinux1 (>= 3.1~), libzstd1 (>= 1.5.5), zlib1g (>= 1:1.1.4)
+Pre-Depends: libbz2-1.0, libc6 (>= 2.31),liblzma5 (>= 5.2.4), libmd0 (>= 1.0.1), libselinux1 (>= 3.0), libzstd1 (>= 1.4.4), zlib1g (>= 1:1.2.11)
 Depends: python3-venv,python3-pip
 Description: This app is fantastic example for DevOps Engineer , i think about this what is incredable app! PRESS MRG!
