@@ -1,57 +1,55 @@
-name: Build and go to Releases .deb package
+name: Build and Release .deb Package
 
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+' # Триггер для тега, чтобы туда попадала версия пакета.
+      - '[0-9]+.[0-9]+'  # Регулярное выражение для тегов в формате 0.1, 1.2 и т.д.
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg-dev make devscripts debhelper
+          sudo apt-get install -y dpkg-dev make devscripts
 
       - name: Build .deb package
-        env:
-          VERSION: ${{ github.ref_name }}
         run: |
+          VERSION=${GITHUB_REF#refs/tags/}
           make build
-          PACKAGE_NAME=$(find .. -type f -name "*.deb" | head -n 1)
-          echo "Имя пакета - $PACKAGE_NAME ----------------------------------------------------"
-          NEW_NAME="${CURDIR}/fastapi-app_${VERSION}_amd64.deb"
-          cp $PACKAGE_NAME ./$NEW_NAME
-          echo "Package renamed and moved to $NEW_NAME ----------------------------------------"
+          PACKAGE_NAME=$(ls ../*.deb | head -n 1)
+          echo $PACKAGE_NAME
+          NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
+          mv $PACKAGE_NAME $NEW_NAME
 
-      - name: Upload package artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: deb-package
-          path: ${{ env.CURDIR }}/fastapi-app_${{ env.VERSION }}_amd64.deb
+          path: ./fastapi-app_${VERSION}_amd64.deb
 
   release:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifacts
+      - name: Download artifact
         uses: actions/download-artifact@v3
         with:
           name: deb-package
 
-      - name: Create release
+      - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref }}
           name: Release ${{ github.ref }}
           body: |
-            Release of version ${{ github.ref }}
+            Release of version ${{ github.ref }}.
           files: fastapi-app_${{ github.ref_name }}_amd64.deb
           draft: false
           prerelease: false
