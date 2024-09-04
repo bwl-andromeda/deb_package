@@ -5,14 +5,14 @@
 PACKAGE_NAME = fastapi-app
 PACKAGE_VERSION = 0.1
 ARCH = amd64
-DEB_DESTDIR := $(CURDIR)
-
 # При обычной команде make в начале будет всегда делаться build
 all: build
 # build пакета
 build:
 	@echo "Собирается пакет..."
-	DEB_DESTDIR =$(DEB_DESTDIR) debuild -b -us -uc
+	debuild -b -us -uc
+	cp ../${PACKAGE_NAME}_${PACKAGE_VERSION}_${ARCH}.deb .
+
 #Очистка всех лишних файлов.
 clean:
 	@echo "Очистка всех лишних файлов..."

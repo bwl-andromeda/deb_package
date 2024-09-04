@@ -7,4 +7,5 @@ systemctl stop fastapi-app.service || true
 systemctl disable fastapi-app.service || true
 
 rm -f /etc/systemd/system/fastapi-app.service
-
+rm -rf /opt/fastapi-app/
+rm -rf /usr/share/doc/fastapi-app/
