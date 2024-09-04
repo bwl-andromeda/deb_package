@@ -2,7 +2,7 @@ name: Build and Release .deb Package
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+*'  
+      - '[0-9]+.[0-9]+*'
 
 jobs:
   build:
@@ -27,12 +27,13 @@ jobs:
           NEW_NAME="fastapi-app_${VERSION}_amd64.deb"
           echo "New package name: $NEW_NAME"
           mv $PACKAGE_NAME $NEW_NAME
+          echo "DEB_PACKAGE=$NEW_NAME" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: deb-package
-          path: fastapi-app_${{ env.VERSION }}_amd64.deb
+          path: ${{ env.DEB_PACKAGE }}
 
   release:
     needs: build
@@ -45,6 +46,9 @@ jobs:
         with:
           name: deb-package
 
+      - name: List files
+        run: ls -l
+
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
@@ -52,6 +56,6 @@ jobs:
           name: Release ${{ github.ref_name }}
           body: |
             Release of version ${{ github.ref_name }}.
-          files: fastapi-app_${{ github.ref_name }}_amd64.deb
+          artifacts: "*.deb"
           draft: false
           prerelease: false
